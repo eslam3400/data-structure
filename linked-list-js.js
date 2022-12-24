@@ -53,6 +53,13 @@ class LinkedList {
         return childNode
     }
 
+    removeAt(index) {
+        if (this.#start == null) return
+        if (index == 0) return this.#start = this.#start.next
+        const previousNode = this.#getNodeParentByIndex(index, this.#start)
+        if (previousNode != null && previousNode.next) previousNode.next = previousNode.next.next
+    }
+
     print() {
         if (this.#start == null)
             return console.log('No Nodes Yet!\nstart to start some :D')
@@ -97,11 +104,15 @@ console.log(linkedList.pop())
 console.log(linkedList.pop())
 linkedList.print()
 console.log("--------------")
-console.log("insetAt value at specific index")
+console.log("insetAt at specific index")
 linkedList.append(1)
 linkedList.append(2)
 linkedList.append(3)
 linkedList.append(4)
 linkedList.insetAt(2, -1)
+linkedList.print()
+console.log("--------------")
+console.log("removeAt at specific index")
+linkedList.removeAt(2)
 linkedList.print()
 console.log("--------------")
