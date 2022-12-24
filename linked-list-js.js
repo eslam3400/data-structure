@@ -32,8 +32,13 @@ class LinkedList {
             return
         }
         const previousNode = this.#getNodeParentByIndex(index, this.#start)
-        if (previousNode == null) return this.#end.next = newNode
+        if (previousNode == null) {
+            this.#end.next = newNode
+            this.#end = newNode
+            return
+        }
         const nextNode = previousNode.next
+        if (nextNode == null) this.#end = newNode
         previousNode.next = newNode
         previousNode.next.next = nextNode
     }
@@ -56,7 +61,19 @@ class LinkedList {
     removeAt(index) {
         if (this.#start == null) return
         if (index == 0) return this.#start = this.#start.next
+        let deletedNode;
         const previousNode = this.#getNodeParentByIndex(index, this.#start)
+        if (previousNode != null && previousNode.next) {
+            deletedNode = previousNode.next
+            previousNode.next = previousNode.next.next
+        }
+        return deletedNode
+    }
+
+    remove(value) {
+        if (this.#start == null) return
+        if (this.#start.data == value) return this.#start = this.#start.next
+        const previousNode = this.#getParentNodeByValue(value, this.#start)
         if (previousNode != null && previousNode.next) previousNode.next = previousNode.next.next
     }
 
@@ -86,6 +103,13 @@ class LinkedList {
         if (counter == index - 1) return node
         return this.#getNodeParentByIndex(index - 1, node.next, counter++)
     }
+
+    #getParentNodeByValue(value, node) {
+        if (value == null) return
+        if (node == null) return
+        if (node.next && node.next.data == value) return node
+        return this.#getParentNodeByValue(value, node.next)
+    }
 }
 
 const linkedList = new LinkedList()
@@ -113,6 +137,10 @@ linkedList.insetAt(2, -1)
 linkedList.print()
 console.log("--------------")
 console.log("removeAt at specific index")
-linkedList.removeAt(2)
+console.log(linkedList.removeAt(2))
+linkedList.print()
+console.log("--------------")
+console.log("remove by value")
+linkedList.remove(1)
 linkedList.print()
 console.log("--------------")
