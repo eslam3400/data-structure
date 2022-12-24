@@ -13,7 +13,7 @@ class LinkedList {
 
     constructor() { }
 
-    push(value) {
+    append(value) {
         this.#current = new Node(value)
         this.#counter++
         if (this.#start == null)
@@ -22,7 +22,7 @@ class LinkedList {
         this.#end = this.#current
     }
 
-    add(index, value) {
+    insetAt(index, value) {
         const newNode = new Node(value)
         if (this.#start == null) this.#start = newNode
         if (index == 0) {
@@ -84,10 +84,10 @@ class LinkedList {
 const linkedList = new LinkedList()
 
 console.log("adding values")
-linkedList.push(1)
-linkedList.push(2)
-linkedList.push(3)
-linkedList.push(4)
+linkedList.append(1)
+linkedList.append(2)
+linkedList.append(3)
+linkedList.append(4)
 linkedList.print()
 console.log("--------------")
 console.log("popping values")
@@ -97,11 +97,11 @@ console.log(linkedList.pop())
 console.log(linkedList.pop())
 linkedList.print()
 console.log("--------------")
-console.log("add value at specific index")
-linkedList.push(1)
-linkedList.push(2)
-linkedList.push(3)
-linkedList.push(4)
-linkedList.add(2, -1)
+console.log("insetAt value at specific index")
+linkedList.append(1)
+linkedList.append(2)
+linkedList.append(3)
+linkedList.append(4)
+linkedList.insetAt(2, -1)
 linkedList.print()
 console.log("--------------")
